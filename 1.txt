@@ -1,0 +1,85 @@
+
+
+//1
+
+void main() {
+  File file = File('hello.txt');
+  file.writeAsStringSync('Van\n');
+  print('Da add ten Van vao file hello.txt');
+}
+
+//2
+void main() {
+  // open file
+  File file = File('hello.txt');
+  // write to file
+  file.writeAsStringSync('\Thuan', mode: FileMode.append);
+  print('Them moi thanh cong');
+}
+
+//3
+void main() {
+  var ok = Directory.current;
+  print('File lam viec tai: ${ok.path}');
+}
+
+//4
+void main() {
+  var vao = File('hello.txt');
+  var vao1 = vao.openRead();
+  var ra = File('hello_copy.txt');
+  var ra1 = ra.openWrite();
+  vao1.pipe(ra1).then((_) {
+    print('Copy!');
+  }).catchError((error) {
+    print('Loi!!');
+  });
+}
+
+
+//5
+import 'dart:io';
+
+void main() {
+  var ok = Directory('tep');
+  if (!ok.existsSync()) {
+    ok.createSync();
+  }
+  for (var i = 1; i <= 100; i++) {
+    var phai = '${ok.path}/file thu$i.txt';
+    var file = File(phai);
+    file.createSync();
+    file.writeAsStringSync('This is file $i');
+  }
+  print('Tao 100 file "${ok.path}".');
+}
+
+//6
+void main() {
+  File file = File('hello_copy.txt');
+  if (file.existsSync()) {
+    file.deleteSync();
+    print('Xoa.');
+  } else {
+    print('Chua xoa dc.');
+  }
+}
+
+//7
+import 'dart:io';
+
+void main() {
+  File file = File('Van.csv');
+  file.writeAsStringSync('Ten,Tuoi,sdt\n');
+  for (int i = 0; i < 2; i++) {
+    stdout.write("Nhap Ten ${i + 1}: ");
+    String? ten = stdin.readLineSync();
+    stdout.write("Tuoi ${i + 1}: ");
+    String? tuoi = stdin.readLineSync();
+    stdout.write("So dien thoai ${i + 1}: ");
+    String? sdt = stdin.readLineSync();
+    file.writeAsStringSync('$ten,$tuoi,$sdt\n', mode: FileMode.append);
+  }
+}
+
+
